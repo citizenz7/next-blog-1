@@ -18,11 +18,11 @@ export default function CreateBlogRoute() {
                 <CardContent>
                     <form className="flex flex-col gap-4" action={handleSubmission}>
                         <div className="flex flex-col gap-2">
-                            <Label>Titre de l'article</Label>
+                            <Label>Titre de l&apos;article</Label>
                             <Input name="title" required type="text" placeholder="Titre de l'article" />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <Label>Texte de l'article</Label>
+                            <Label>Texte de l&apos;article</Label>
                             <Textarea name="content" rows={15} required placeholder="Texte de l'article" />
                         </div>
                         <div className="flex flex-col gap-2">

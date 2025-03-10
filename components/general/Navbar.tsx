@@ -37,7 +37,7 @@ export async function Navbar() {
                             <LogInIcon className="w-4 h-4" />Se connecter
                         </LoginLink>
                         <RegisterLink className={buttonVariants({variant: "outline"})}>
-                            <UserPlusIcon className="w-4 h-4" />S'enregistrer
+                            <UserPlusIcon className="w-4 h-4" />S&apos;enregistrer
                         </RegisterLink>
                     </div>
                 )}
