@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Applis du projet
+* NextJS
+* ReactJS
+* shadcn (UI components)
+* Tailwindcss (CSS)
+* Prisma (ORM)
+* Neon (PostgreSQL) https://neon.tech
+* Kinde (authentication) https://kinde.com
 
-## Getting Started
+### Installer NodeJS
+https://nodejs.org/fr/download
 
-First, run the development server:
+**Choisir :**
+* version Linux, avec nvm et pnpm
+* version Windows avec fnm (gestionnaire de versions Node.js multiplateforme) et pnpm
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+... et suivre les instructions.
+
+```
+Note :
+npm est le Node Package Manager livré par défaut.
+Beaucoup de dev utilisent désormais pnpm au lieu de npm qui semble plus adapté aux projets modernes et à NextJS.
+Cela change peu de chose et on utilise pnpm comme npm, à quelques petites exceptions près...
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installer pnpm (optionnel)
+https://pnpm.io
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Installer NextJS
+`pnpm create-next-app@latest`
+1. donner un nom pour le projet
+2. ok pour tout sauf : /src et @alias
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Lancer le serveur de dev
+`pnpm run dev`
 
-## Learn More
+### Installer Shadcn
+`pnpm dlx shadcn@latest init`
 
-To learn more about Next.js, take a look at the following resources:
+Installer le composant Button par exemple :
+`pnpm dlx shadcn@latest add button`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Installer Prisma et Prisma client
+`pnpm i -D prisma`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`pnpm i @prisma/client`
 
-## Deploy on Vercel
+`pnpm dlx prisma init`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Fichier Prisma :
+`~/prisma/schema.prisma`
+Fichier où on définit la structure de la base de données, avec les tables.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Créer la base de données :
+`pnpm dlx prisma db push`
+
+Pour rappel, la BDD PostgreSQL est "en ligne" sur Neon et notre structure de BDD est stockée dans le fichier prisma/schema.prisma (ORM).
+Cette commande va "pusher" la ou les tables PostgreSQL dans Neon.
+Dans votre console Neon (https://console.neon.tech), aller dans Branch/Tables, vous verrez les tables si tout a bien fonctionné.
+
+### Utiliser Prisma Studio
+`pnpm dlx prisma studio`
+
+Prisma studio est la version graphique pour la gestion de la base de données Prisma.
+On peut ajouter des enregistrements, modifier des enregistrements, etc. dans les tables.
+
+### Prisma best practises
+Il vaut mieux créer une instance Prisma pour eviter les soucis créés par le hot-reload de nextJS qui peut créer de multiple instances Prisma...
+
+Créer un nouveau répertoire ~/utils et un nouveau fichier :
+`~/utils/db.ts`
+
+Voir ici : https://www.prisma.io/docs/orm/more/help-and-troubleshooting/nextjs-help
+et copier le code de la section **Recommended solution**
+
+### Kinde : authentication
+Kinde est conseillé pour l'authentification...
+Se rendre sur kinde.com (créer un compte gratuit si besoin)
+Paramétrer le Bussiness sur kinde.com
+
+Récupérer les infos suivantes et les mettre dans ***~/.env*** (à adapter avec ses propres infos :D !!! ) :
+```
+KINDE_CLIENT_ID=e92c8172f54e4ee78557be9971d059ad
+KINDE_CLIENT_SECRET=6Lz3nPYBWwsewQJvzSsROkOq3OcQjD35jrEe2BE8SSXqOx8qfse
+KINDE_ISSUER_URL=https://learnnextjs15olivier.kinde.com
+KINDE_SITE_URL=http://localhost:3000
+KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
+KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/dashboard
+```
+
+Créer un nouveau fichier dans : app/api/auth/[kindeAuth]/route.ts et y mettre :
+```
+import { handleAuth } from "@kinde-oss/kinde-auth-nextjs/server";
+export const GET = handleAuth();
+```
+
