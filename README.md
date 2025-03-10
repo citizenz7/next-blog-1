@@ -94,3 +94,15 @@ import { handleAuth } from "@kinde-oss/kinde-auth-nextjs/server";
 export const GET = handleAuth();
 ```
 
+### Déploiement sur Vercel
+Pour le déploiement, attention au accents francais.
+De plus, il faut intégrer un nouveau script postinstall (pour Prisma) dans le package.json :
+```
+{
+    ...
+    "scripts": {
+        "postinstall": "prisma generate"
+    }
+    ...
+}
+```
