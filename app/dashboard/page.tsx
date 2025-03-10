@@ -28,7 +28,7 @@ export default async function DashboardRoute() {
     // count articles
     const count = await prisma.blogPost.count({
         where: {
-            authorId: user.id
+            authorId: user?.id
         }
     });
 
