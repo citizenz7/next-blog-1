@@ -80,9 +80,9 @@ Paramétrer le Bussiness sur kinde.com
 
 Récupérer les infos suivantes et les mettre dans ***~/.env*** (à adapter avec ses propres infos :D !!! ) :
 ```
-KINDE_CLIENT_ID=e92c8172f54e4ee78557be9971d059ad
-KINDE_CLIENT_SECRET=6Lz3nPYBWwsewQJvzSsROkOq3OcQjD35jrEe2BE8SSXqOx8qfse
-KINDE_ISSUER_URL=https://learnnextjs15olivier.kinde.com
+KINDE_CLIENT_ID=
+KINDE_CLIENT_SECRET=
+KINDE_ISSUER_URL=
 KINDE_SITE_URL=http://localhost:3000
 KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
 KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/dashboard
